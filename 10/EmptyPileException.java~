@@ -1,0 +1,20 @@
+package week10;
+/**
+ * Exam pile exception
+ *
+ * @author Lech Szymanski
+ *
+ */
+
+public class EmptyPileException extends RuntimeException {
+
+    // Constructor for StackExceptions
+    public EmptyPileException(String message) {
+        // Pass the message up to the parent class (the Runtime Exception) to
+        // get Rutime Exception behaviour accompanied by the pass up
+        // message
+        super(message);
+    }
+    final static long serialVersionUID = 123;  
+
+}

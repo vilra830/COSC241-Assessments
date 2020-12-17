@@ -1,0 +1,239 @@
+package week10;
+
+
+import java.util.*;
+/**
+ * A class that implements ExamPile interface.
+ * 
+ * @author Rhea Villafuerte
+ */
+
+public class EP implements ExamPile{
+
+    /**The pile of exams.*/
+    private ArrayList<Integer> exams ;
+
+    /**The size of the pile.*/
+    private int size;  // size of the exam pile
+  
+
+
+    /**
+     *Creates a new pile of exam.
+     */
+    public EP(){
+        this.exams =  new ArrayList<Integer>(); 
+        this.size = 0;
+    }
+ 
+    
+    /**Returns a true if size is empty.
+     *@return true
+     */
+    public boolean isEmpty() {
+        return (this.size == 0);
+    } 
+
+    
+    /** Initialises the pile of exams to consist of the given array.
+     *@param items array of int 
+     */
+    public void load(int[] items){
+        
+        for(int i = 0 ; i < items.length;i++){
+            exams.add(items[i]);
+            this.size++;
+        }
+    }
+
+    
+    /**Returns an int equal to the number of exams remaining in the  pile.
+     *@return size of pile
+     **/
+    public int size(){
+  
+        return this.size;
+  
+    }
+
+    
+    /**Returns an int equal to the top of pile.
+     *@return top of pile
+     **/
+    public int peek(){
+        if (isEmpty()){
+            throw new EmptyPileException("peek");
+        }
+ 
+        return this.exams.get(0);
+    }
+
+    
+    /**Returns an int equal to the top of pile and removes it.
+     *@return top of pile
+     **/   
+    public int mark(){
+        if (isEmpty()){
+            throw new EmptyPileException("mark");
+        }else {
+            return exams.remove(0);
+        }
+    }
+
+    
+    /**Moves the top of pile from the top to the bottom.
+     */
+    public void delay(){
+        if (this.isEmpty()) {
+            throw new EmptyPileException("remove");
+        }
+        int i = exams.get(0);
+        exams.remove(0);
+        exams.add(exams.size() , i);
+    }
+
+    
+  /**Returns a string representation of exams in a pile.
+     *@return  exams in a pile
+     **/
+    public String toString() {
+        
+        String result="";
+        for(int i = 0; i < exams.size(); i++) {
+        
+            result+=exams.get(i)+" ";
+        }
+        
+        return result.substring(0,result.length()-1);
+    }
+
+    
+    /**Returns a true exampiles compared have the same contents.
+     *@param pile an EP object to which exams of class is compared to.
+     *@return true if piles compared are equal 
+     **/
+    public boolean equals(EP pile){
+
+        if (this.exams.size() == pile.size()){
+            for(int i = 0 ; i < this.exams.size() ; i++){
+                if (this.exams.get(i) == pile.exams.get(i)){
+                    return true;
+                }
+            }
+        } 
+
+
+        return false; 
+            
+                
+          
+    }
+
+    
+    /**Returns a string of M's and D's to indicate mark or delay of exams.
+     *@return sort with Ms and Ds
+     **/
+    public String sortingSteps(){
+        int count = 0;
+        String sort = "";
+        int size = exams.size();
+        while(count < size){
+            for(int i =0 ; i < size ; i++){
+                if (exams.get(i) == count){
+                    sort += "M";
+                    count ++;
+                    if (i >= size){
+                        i =0;
+                    }
+                } else if (exams.get(i) > count){
+                    sort += "D";
+                } else {
+                    sort = sort;
+                }
+            }
+        }
+        return sort;
+    }
+
+    
+    /**Returns a new exam pile after converting M's and D's.
+     *@return new exam pile
+     *@param steps the string of D's and M's after exampile if sorted
+     **/
+    public static EP reconstruct(String steps){
+        EP pile1 = new EP();
+        int count = 0;
+        LinkedList<Integer> exampile = new LinkedList<Integer>();
+        for(int n = 0 ; n<steps.length() ; n++){
+            if(steps.charAt(n) == 'M'){
+                count++;
+            }
+        }
+        
+ 
+        for(int i = steps.length()-1 ; i >= 0 ; i--){
+            if (steps.charAt(i) == 'M'){
+                exampile.addFirst(count-1);
+                count--;
+            } else if(steps.charAt(i) == 'D'){
+                exampile.addFirst(exampile.removeLast());
+            }
+        }
+        int[] items = new int[exampile.size()];
+        for(int i = 0 ; i < exampile.size() ; i++){
+            items[i] = exampile.get(i);
+        }
+        pile1.load(items);
+        return pile1;
+
+    }
+}
+        
+           
+
+
+
+                                
+   
+while (curr != null) { 
+    if (value < curr.value){
+        int a = curr.value;
+        curr.value = value; 
+        return a;
+    } else if(curr.right == null && value > curr.value){
+        Cell newCell = new Cell(value);
+        curr.right = newCell;
+        newCell.left = curr;
+                
+        if (curr.above != null && curr.above.right != null){
+                   
+            curr.above.right.below  = newCell;
+            newCell.above = curr.above.right;
+                  
+        }
+        return null;
+    }
+    curr = curr.right;
+}
+        
+return null; 
+
+if (smallest == null) {
+    smallest = new Cell(value);
+    return;
+}
+  
+              
+Cell curr = smallest;
+Integer bumpedValue = value;        
+       
+while (bumpedValue != null) {
+    bumpedValue =  addToRow(curr, bumpedValue);           
+    if (curr.below == null && bumpedValue != null) {
+        Cell newRow  = new Cell(bumpedValue);
+        newRow.above = curr;
+        curr.below = newRow;
+    }
+    curr = curr.below;
+}
+if

@@ -1,0 +1,186 @@
+package week04;
+
+import java.util.ArrayList;
+
+/**
+ *code for an array based implementation of Young's tableau.
+ *
+ * @author Rhea Villafuerte
+ */
+public class TableauApp {
+
+   /**
+     * The main method is just used for testing.
+     *
+     * @param args command line arguments are not used.
+     */
+   
+    public static void main(String[] args) {
+        final int[][] valid = {{1, 4, 5, 10,13}, {2, 6, 8}, {3, 9, 12}, {7}};
+        System.out.println(TableauApp.toString(valid));
+        System.out.println(TableauApp.rowLengthsDecrease(valid));
+        System.out.println(TableauApp.isSetOf1toN(valid));
+    }
+
+    /**
+     * Determines whether the array passed to it is a valid tableau or not.
+     *
+     * @param t a two-dimensional array to test for tableau-ness.
+     *
+     * @return true if the parameter is a valid tableau, otherwise false
+     */
+    public static boolean isTableau(int[][] t){
+        if (rowLengthsDecrease(t) &&  rowValuesIncrease(t)){
+            if (columnValuesIncrease(t) && isSetOf1toN(t)){
+                return true;
+            }
+            
+        }
+        return false;
+         
+
+    }
+
+    /**
+     * Determines whether the rows' lengths are increasing.
+     *
+     * @param t a two-dimensional array to test for tableau-ness.
+     *
+     * @return true if the parameter is increasing, otherwise false
+     */
+    
+    public static boolean rowLengthsDecrease(int[][] t){
+
+         
+
+        for (int i = 0; i < t.length-1; i++){
+          
+            
+            if (t[i].length <  t[i+1].length ){
+                return false;
+            }
+                
+             
+            
+        } 
+        return true;
+            
+        
+        
+    
+    }
+    
+    /**
+     * Determines whether the column  values are increasing.
+     *
+     * @param t a two-dimensional array to test for tableau-ness.
+     *
+     * @return a  if the parameter is increasing, otherwise false
+     */
+    
+    public static boolean rowValuesIncrease(int[][] t){
+        boolean a = true;
+        for (int row = 0; row < t.length; row++){
+            for (int col = 0; col < t[row].length-1; col++){
+                if (t[row][col] < t[row][col+1]){
+                    a = true;
+                } else {
+                    a = false;
+                    
+                }
+            }
+        
+        }
+        return a;
+    }
+
+    /**
+     *  Determines whether the row vlues increase in each column increases.
+     *
+     * @param t a two-dimensional array which represents a tableau.
+     *
+     * @return true if rows are increasing in each column.  
+     */
+    public static boolean columnValuesIncrease(int[][] t){
+        boolean a = true;
+    
+        for(int col = 0 ; col  < t[0].length; col ++){
+            for ( int row =0; row <t.length-1; row++){
+                if(col < t[row+1].length){
+                    if (t[row][col] >= t[row+1][col]){
+                        return false;
+                        
+                    }
+                }
+            }
+        }
+        return true;
+    
+        
+    }
+  
+
+
+  
+  
+    /**
+     *  Determines whether array is a set of 1 to its largest value.
+     *
+     * @param t a two-dimensional array which represents a tableau.
+     *
+     * @return true if array is a setof1to its largest value and no duplicates.
+     */
+  
+    public static boolean isSetOf1toN(int[][] t){
+        ArrayList<Integer> arrlist = new ArrayList<Integer>();
+        ArrayList<Integer> arrlist1 = new ArrayList<Integer>();
+             
+        for (int row = 0 ;  row < t.length ; row++){      
+            for(int col =0 ; col <t[row].length ; col++){
+               
+                arrlist.add(t[row][col]);
+                if(!arrlist1.contains(t[row][col])){
+
+                    arrlist1.add(t[row][col]);
+                    
+                }
+            }
+        }
+
+        
+        for(int i = 0 ; i < arrlist.size() ; i++){
+            if (arrlist1.size() != arrlist.size()){
+                return false;
+            } else if(arrlist.get(i) == 0||arrlist.get(i)> arrlist.size()){
+                return false;
+            }
+                           
+        }
+           
+            
+                   
+    
+        return true;
+    }
+
+    /**
+     *  Returns a string representation of an array based tableau.
+     *
+     * @param t a two-dimensional array which represents a tableau.
+     *
+     * @return a string representation of an array based tableau.
+     */
+    public static String toString(int[][] t) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < t.length; i++) {
+            for (int j = 0; j < t[i].length; j++) {
+                result.append(String.format("%-4s", t[i][j]));
+            }
+            if (i < t.length-1) {
+                result.append("\n");
+            }
+        }
+        return result.toString();
+    }
+
+}

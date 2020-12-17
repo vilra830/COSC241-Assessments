@@ -1,0 +1,79 @@
+package week03;
+/**RecursiveApp.java program.
+ * @author by Rhea ViIllafuerte 14/03/2019
+ */
+
+
+public class RecursiveApp{
+    /**A recursive presentation of counting and summing up the digits of n.
+     *@param args args Command line arguments
+     */  
+    
+
+    public static void main (String[] args){
+
+
+
+    }
+
+    /**Counts digits of a number.
+     *@param n number 
+     *@return digits of the number
+     **/
+    
+    public static long digits(long n){
+        
+
+        if(n < 10){
+            
+            return 1;
+
+        }else {
+            
+            return 1 + digits(n/10);
+        }
+
+
+    }
+
+    
+    /**Counts digits of a number.
+     *@param n number 
+     *@return sum of digits of the number
+     **/
+    
+
+    public static long sumOfDigits(long n){
+        long sum =  n % 10;
+        if ( n == 0){
+
+            return 0 ;
+
+        }else{
+            return sum + sumOfDigits(n/10);
+        }
+    }
+    
+    /**Counts digits of a number.
+     *@param n a negative number 
+     *@return sum digits of the number
+     **/
+
+    
+
+    public static long sumOfDigitsNegative (long n){
+
+        long sum =  n % 10;
+        
+        if ( n == 0){
+
+            return 0 ;
+
+        }else {
+            
+            return sum + sumOfDigitsNegative(n/10);
+           
+        }
+    }
+
+}

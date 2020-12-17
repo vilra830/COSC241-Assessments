@@ -1,0 +1,5 @@
+1. /home/cshome/r/rvillafuerte - absolute
+2. 241/bin - relative
+3. /bin/ls - absolute
+4. bin/sort - relative
+5. home/cshome/u/username - relative
